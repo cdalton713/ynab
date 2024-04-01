@@ -2,7 +2,7 @@
  * Runs the UI for the applications. This file should be kept simple, and pass
  * any heavy lifting to the extension service worker.
  */
-import * as statusAnd from './status_and';
+import * as statusAnd from './utils/statusAnd';
 
 // When the popup loads, populate the YNAB Access token field with the stored
 // value (if there is one).
@@ -21,7 +21,7 @@ document.getElementById("run")!.addEventListener("click", async () => {
   if ((ynabAccessTokenField !== storedAccessToken) && !ynabAccessTokenField.includes("*")) {
     await chrome.storage.local.set({"ynab_access_token": ynabAccessTokenField});
   }
-  await chrome.runtime.sendMessage({type: "run", ynabAccessToken: storedAccessToken, "num_orders": 50});
+  await chrome.runtime.sendMessage({type: "run", ynabAccessToken: storedAccessToken, "numOrders": 50});
   // The response will come in a different message (see addListener below).
 });
 
